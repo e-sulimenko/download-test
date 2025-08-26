@@ -1,5 +1,21 @@
 import os
 from pathlib import Path
+import time
+
+def long_running_task():
+    """Функция, которая выполняется 30 секунд"""
+    start_time = time.time()
+    end_time = start_time + 30
+    
+    print("Задача началась")
+    
+    while time.time() < end_time:
+        # Делаем какую-то работу
+        time.sleep(1)
+        elapsed = time.time() - start_time
+        print(f"Работаю... Прошло {elapsed:.1f} секунд из 30")
+    
+    print("Задача завершена успешно!")
 
 def count_lines(filepath: str) -> int:
     """Подсчёт количества строк в файле"""
@@ -13,6 +29,7 @@ def main():
     result_dir = os.getenv('RESULT_DIR')
     result_path = os.getenv('RESULT_PATH')
 
+    long_running_task()
     # Проверяем, что все переменные заданы
     if None in (data_dir, dataset_path, result_dir, result_path):
         raise ValueError("Не все необходимые переменные окружения заданы!")
